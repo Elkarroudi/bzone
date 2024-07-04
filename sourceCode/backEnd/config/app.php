@@ -183,6 +183,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Jwt Auth Provider
+         */
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
