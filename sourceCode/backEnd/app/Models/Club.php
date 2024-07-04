@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Club extends Model
@@ -11,7 +14,6 @@ class Club extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id',
         'owner_id',
         'added_by',
         'name',
@@ -20,4 +22,19 @@ class Club extends Model
         'logo',
         'cover',
     ];
+
+    public function owner(): BelongsTo
+    { return $this->belongsTO(Owner::class); }
+
+    public function manager(): BelongsTo
+    { return $this->belongsTO(Manager::class); }
+
+    public function employees(): HasMany
+    { return $this->hasMany(Employee::class); }
+
+    public function stadiums(): HasMany
+    { return $this->hasMany(Stadium::class); }
+
+    public function academy(): HasOne
+    { return $this->hasOne(Academy::class); }
 }

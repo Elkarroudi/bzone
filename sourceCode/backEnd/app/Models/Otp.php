@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Otp extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'user_id',
         'otp',
         'status',
         'purpose',
     ];
+
+    public function user(): BelongsTo
+    { return $this->belongsTo(User::class); }
 }

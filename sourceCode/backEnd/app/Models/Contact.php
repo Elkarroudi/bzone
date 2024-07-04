@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends Model
@@ -11,7 +12,6 @@ class Contact extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id',
         'name',
         'club_name',
         'email',
@@ -20,4 +20,7 @@ class Contact extends Model
         'subject',
         'message',
     ];
+
+    public function notes(): HasMany
+    { return $this->hasMany(Note::class); }
 }
