@@ -190,7 +190,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Providers\Custom\RepositoryLayerProvider::class,
+        App\Providers\Custom\ServiceLayerProvider::class,
         /*
          * Application Service Providers...
          */

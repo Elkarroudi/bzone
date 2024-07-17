@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Base\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mockery\Matcher\Not;
 
-class Manager extends Model
+class Manager extends BaseModel
 {
     use HasFactory;
 
