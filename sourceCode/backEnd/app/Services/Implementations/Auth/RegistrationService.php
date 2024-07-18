@@ -43,6 +43,8 @@ class RegistrationService extends BaseService implements RegistrationServiceInte
     public function registerUser(Request $request, $userType): JsonResponse|array
     {
         $requestValidationRules = [ ...$this->baseRequestValidationRules->getUserValidationRules(), ];
+
+        if ($userType == 'manager') {$requestValidationRules['role'] = 'required'; }
         return $this->verifyUserInformationBeforeRegistration($request, $userType, $requestValidationRules);
     }
 
@@ -64,7 +66,8 @@ class RegistrationService extends BaseService implements RegistrationServiceInte
     {
         $userInformation['username'] = '@' . uniqid();
         $userInformation['type'] = $userType;
-        $userInformation['address'] = json_encode($userInformation['address']);
+
+        if ($userType !== 'client') { $userInformation['address'] = json_encode($userInformation['address']); }
 
         $additionalUserInformation = [];
         $model = Client::class;
@@ -75,7 +78,9 @@ class RegistrationService extends BaseService implements RegistrationServiceInte
         if ($userInformation['type'] === 'manager')
         {
             $model = Manager::class;
-            $additionalUserInformation['added_by'] = Admin::where('user_id', '=', auth()->id())->get();
+            $admin = Admin::where('user_id', '=', auth()->id())->get();
+            $additionalUserInformation['added_by'] = $admin[0]->id;
+            $additionalUserInformation['role'] = $userInformation['role'];
         }
 
         if ($userInformation['type'] === 'owner') { $model = Owner::class; }
