@@ -15,15 +15,10 @@ class RegistrationController extends Controller
     { $this->registrationService = $registrationService; }
 
 
-    public function registerUser(Request $request, $userType)
-    { return $this->registrationService->registerUser($request, $userType); }
+    public function registerAdminUser(Request $request)
+    {return $this->registrationService->registerUser($request, 'admin');}
 
-    public function registerBasicUser(Request $request)
-    { return $this->registrationService->registerBasicUser($request); }
-
-
-
-    public function registerAdminUser(Request $request) {return $this->registerUser($request, 'admin');}
-    public function registerManagerUser(Request $request) {return $this->registerUser($request, 'manager');}
+    public function registerManagerUser(Request $request)
+    {return $this->registrationService->registerUser($request, 'manager');}
 
 }
